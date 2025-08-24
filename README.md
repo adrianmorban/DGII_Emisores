@@ -13,6 +13,7 @@ Esta aplicación descarga automáticamente el listado de contribuyentes autoriza
 - **API REST**: Endpoints para buscar y filtrar emisores.
 - **Configuración Flexible**: Variables de entorno para personalizar comportamiento.
 - **Programación de Actualizaciones**: Configura actualizaciones automáticas mediante CRON.
+- **Seguridad**: Protección CORS y rate limiting para prevenir abusos.
 - **Robustez**: Manejo de errores y reintentos automáticos.
 
 ## Tecnologías
@@ -115,6 +116,9 @@ La aplicación se configura mediante variables de entorno:
 | `MAX_RETRIES` | Número de reintentos para operaciones | 3 |
 | `PORT` | Puerto del servidor Express | 3000 |
 | `NODE_ENV` | Entorno (development/production) | development |
+| `ALLOWED_ORIGINS` | Orígenes permitidos para CORS (separados por comas) | http://localhost:3000,http://localhost:8080 |
+| `RATE_LIMIT_WINDOW_MS` | Ventana de tiempo para rate limiting (minutos) | 15 |
+| `RATE_LIMIT_MAX` | Máximo de solicitudes por ventana de tiempo | 100 |
 | `UPDATE_SCHEDULE` | Programación de actualizaciones (formato cron) | 0 3 * * * |
 | `FORCE_UPDATE_ON_START` | Forzar actualización al iniciar | true |
 

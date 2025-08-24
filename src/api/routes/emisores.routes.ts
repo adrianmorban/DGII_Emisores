@@ -1,5 +1,6 @@
 import { Express, Request, Response } from 'express';
 import { emisoresController } from '../controllers/emisores.controller';
+import { searchLimiter, updateLimiter } from '../middlewares/rateLimiter';
 
 export default function emisoresRoutes(app: Express): void {
   /**
@@ -21,7 +22,7 @@ export default function emisoresRoutes(app: Express): void {
    * @desc    Buscar emisores por nombre o razón social
    * @access  Public
    */
-  app.get('/api/v1/emisores/buscar', emisoresController.search);
+  app.get('/api/v1/emisores/buscar', searchLimiter, emisoresController.search);
 
   /**
    * @route   GET /api/v1/status
@@ -35,5 +36,5 @@ export default function emisoresRoutes(app: Express): void {
    * @desc    Forzar actualización de datos (protegido)
    * @access  Private
    */
-  app.post('/api/v1/actualizar', emisoresController.forceUpdate);
+  app.post('/api/v1/actualizar', updateLimiter, emisoresController.forceUpdate);
 }
