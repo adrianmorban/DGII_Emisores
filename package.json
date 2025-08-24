@@ -1,0 +1,52 @@
+{
+  "name": "dgii-csv-scraper",
+  "version": "1.0.0",
+  "description": "Aplicación para descargar CSV de DGII y guardar en SQLite",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "start:api": "node dist/server.js",
+    "start:scraper": "node dist/index.js",
+    "dev": "ts-node --transpile-only src/server.ts",
+    "dev:scraper": "ts-node --transpile-only src/index.ts",
+    "watch": "nodemon --exec \"ts-node --transpile-only src/server.ts\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dgii",
+    "csv",
+    "scraper",
+    "sqlite",
+    "dominicana",
+    "puppeteer"
+  ],
+  "author": "Tu nombre",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "node-cron": "^4.2.1",
+    "puppeteer": "^21.3.6",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/helmet": "^0.0.48",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.3.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/puppeteer": "^5.4.7",
+    "@types/sqlite3": "^3.1.11",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
