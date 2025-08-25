@@ -9,6 +9,8 @@ export function createServer(): Express {
   // Inicializar la aplicación Express
   const app = express();
   
+  app.set('trust proxy', true);
+
   // Configurar middlewares
   app.use(helmet()); // Seguridad HTTP
   
