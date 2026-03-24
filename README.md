@@ -145,6 +145,16 @@ GET /api/v1/status
 POST /api/v1/actualizar
 ```
 
+### Documentacion Swagger
+```
+GET /api-docs
+```
+
+Especificacion OpenAPI en JSON:
+```
+GET /api-docs.json
+```
+
 ## Configuración
 
 La aplicación se configura mediante variables de entorno:
