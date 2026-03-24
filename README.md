@@ -74,6 +74,50 @@ npm run start:scraper
 npm run dev
 ```
 
+## Docker (Produccion)
+
+Este proyecto incluye `Dockerfile` multi-stage y `docker-compose.yml` para un despliegue reproducible.
+
+### 1) Crear archivo de entorno
+
+```bash
+cp .env.example .env
+```
+
+Recomendado para contenedores:
+
+```env
+NODE_ENV=production
+PUPPETEER_HEADLESS=true
+PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+DB_PATH=/app/data/dgii_data.db
+DOWNLOAD_PATH=/app/downloads
+```
+
+### 2) Construir y levantar
+
+```bash
+docker compose up -d --build
+```
+
+### 3) Ver logs
+
+```bash
+docker compose logs -f dgii-emisores
+```
+
+### 4) Detener
+
+```bash
+docker compose down
+```
+
+Notas de rendimiento:
+
+- La primera construccion tarda mas por instalar paquetes de sistema (Chromium).
+- Las siguientes construcciones aprovechan cache de capas del `Dockerfile`.
+- Se evita la descarga automatica de Chromium de Puppeteer durante `npm ci` usando `PUPPETEER_SKIP_DOWNLOAD=true`.
+
 ## API Endpoints
 
 ### Obtener todos los emisores (paginado)

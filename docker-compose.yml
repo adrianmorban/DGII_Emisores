@@ -1,0 +1,26 @@
+services:
+  dgii-emisores:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dgii-emisores:latest
+    container_name: dgii-emisores
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_PATH: /app/data/dgii_data.db
+      DOWNLOAD_PATH: /app/downloads
+      PUPPETEER_HEADLESS: "true"
+      PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium
+    volumes:
+      - dgii_data:/app/data
+      - dgii_downloads:/app/downloads
+
+volumes:
+  dgii_data:
+  dgii_downloads:
