@@ -106,23 +106,30 @@ export class ScraperService {
 
       console.log('Navegando a la página de DGII...');
 
-      // Configurar timeout de página más largo
-      page.setDefaultTimeout(45000);
-      page.setDefaultNavigationTimeout(45000);
+      // Configurar timeout de página más largo (90 segundos para que sea más tolerante)
+      const navigationTimeout = 90000;
+      page.setDefaultTimeout(navigationTimeout);
+      page.setDefaultNavigationTimeout(navigationTimeout);
 
-      await page.goto(this.url, {
-        waitUntil: ['networkidle0', 'domcontentloaded'],
-        timeout: 45000
-      });
+      try {
+        // Usar solo 'domcontentloaded' sin 'networkidle0' para evitar timeout en sites con scripts.
+        // networkidle0 es demasiado restrictivo para páginas con pollers/trackers permanentes.
+        await page.goto(this.url, {
+          waitUntil: 'domcontentloaded',
+          timeout: navigationTimeout
+        });
+        console.log('✓ Página cargada (DOM ready)');
+      } catch (gotoError) {
+        console.log('⚠️  Timeout en goto pero continuando (página parcialmente cargada)...');
+        // Continuar de todas formas, ya que la página podría estar funcional
+        await page.waitForTimeout(3000); // Dar tiempo extra para que carguen recursos críticos
+      }
 
       // Esperar a que la página cargue completamente
-      console.log('Esperando a que la página cargue completamente...');
-
-      // Esperar a que el DOM esté completamente cargado
-      await page.waitForFunction(() => document.readyState === 'complete');
+      console.log('Esperando estabilización de la página...');
 
       // Esperar adicional para JavaScript que se ejecute después del load
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(3000);
 
       // Esperar específicamente por formularios o botones que puedan aparecer
       try {
